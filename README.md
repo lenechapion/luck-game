@@ -33,6 +33,7 @@
 ![スクリーンショット2](https://github.com/lenechapion/luck-game/assets/155729519/f945057b-ff67-4ffe-bb5a-c7994f57f901)
 
 リザルト画面：
+
 ![スクリーンショット3](https://github.com/lenechapion/luck-game/assets/155729519/57035c03-90ff-4a51-99bf-c745f80d011d)
 
 
