@@ -14,20 +14,23 @@ UNDERLINE = "\033[4m"
 #末尾制御(スタイルリセット)
 END = "\033[0m"
 
-def save_score(score,high_score):
+def save_score(score, high_score, mode):
+    filename = f"high_score_mode_{mode}.txt"#ファイル書き込み
     if score > high_score:
-        with open("high_score.txt","w") as file:#ファイル書き込み
+        with open(filename, "w") as file:
             file.write(str(score))
         return score
     return high_score
 
-def load_high_score():
-    if os.path.exists("high_score.txt"):#ファイル存在確認
-        with open("high_score.txt","r") as file:#ファイル読み込み
+def load_high_score(mode):
+    filename = f"high_score_mode_{mode}.txt"
+    if os.path.exists(filename):#ファイル存在確認
+        with open(filename, "r") as file:#ファイル読み込み
             return int(file.read())
-#ファイルが無ければ０を返す    
+        #ファイルが無ければ０を返す    
     else:
         return 0
+
 
 def get_game_mode():
     while True:
@@ -55,56 +58,54 @@ def game_intro():
     print(f"５.{BOLD}要は{RED}運ゲー{END}{BOLD}です。{END}")
     input("***Enterキーを押すとゲームスタート！***\n")
 
-def play_game(high_score,score,choices):
+def play_game(high_score, score, choices, mode):
     while True:
-        safe_line = random.randint(1,choices)#ランダム抽選
-        os.system('cls' if os.name == 'nt' else 'clear')  # コンソール画面をクリア
+        safe_line = random.randint(1, choices)
+        os.system('cls' if os.name == 'nt' else 'clear')#コンソール画面をクリア
         print(f"ハイスコア：{high_score}")
         print(f"スコア：{score}")
-        print(f"\n1 ~ {choices}の数字から一つを入力選択, \" q \" でゲーム終了します >>", end="")
+        print(f"\n1 ~ {choices} の数字から一つを入力選択, \"q\" でゲーム終了します >>", end="")
 
         move = input()
         if move.lower() == "q":
             print("\nゲームを終了します！")
             print(f"最終スコア：{score}")
-            save_score(score, high_score)
+            save_score(score, high_score, mode)
             break
-        elif move.isdigit() and 1 <= int(move) <= choices:#選択肢数字のみ受付
+        elif move.isdigit() and 1 <= int(move) <= choices:#選択肢数字のみ受け付け
             player_choice = int(move)
             if player_choice == safe_line:
                 print("スコアアップ！")
                 score += 1
-                if score % 10 == 0: #１０回ごとにメッセージ表示
+                if score % 10 == 0:#10回ごとにメッセージ表示
                     print(f"\n{score}回達成！！")
-                    print("運命が味方しています！")
-                time.sleep(1)#1秒表示
+                time.sleep(1)#１秒表示
             else:
                 print(f"{RED}ゲームオーバー！{END}")
                 print("運に見放されました。")
                 print(f"スコア：{score}")
-                high_score = save_score(score, high_score)
+                high_score = save_score(score, high_score, mode)
                 choice = input("最初から「1 + Enter」 / 終了する「Enterのみ」 >> ")
                 if choice.lower() == "1":
-                    return play_game(high_score, 0, choices)  # スコア０で最初から始める
+                    return play_game(high_score, 0, choices, mode)  # スコア0で最初から始める
                 else:
                     print("ゲームを終了します！")
                     print("お疲れさまでした！")
-                    break  # ゲームを終了
-    else:
-        print("無効な入力です！")
+                    break
+        else:
+            print("無効な入力です！")
 
 
 
 #ハイスコア読み込み＋ゲーム導入
 def game_main():
-    high_score = load_high_score()    
-    score = 0
-    game_intro()#ゲーム説明
-    mode = get_game_mode() #モード選択
+    game_intro()  # ゲーム説明
+    mode = get_game_mode()  # モード選択
     #選択肢の数決定
-    choices = 2 if mode == 1 else 3 #mode1=2択,それ以外は3択
-    play_game(high_score,score,choices)
+    choices = 2 if mode == 1 else 3#mode1=2択,それ以外は3択
+    high_score = load_high_score(mode)  # モードに基づいたハイスコアを読み込み
+    score = 0
+    play_game(high_score, score, choices, mode)
 
-# このスクリプトが直接実行された場合にのみgame_main関数を呼び出す
 if __name__ == "__main__":
     game_main()
