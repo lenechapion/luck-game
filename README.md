@@ -23,6 +23,20 @@
 **繰り返し遊べる設計**　：ランダム性により、毎回異なる結果が得られます
 
 
+# DEMO
+タイトル＆モード選択画面：
+![スクリーンショット1](https://github.com/lenechapion/luck-game/assets/155729519/b7b26f11-359c-4ff1-a288-d52dd112dd43)
+
+プレイ画面：
+選択肢が一致するとスコアアップと１秒間表示された後、ゲームが継続します。
+
+![スクリーンショット2](https://github.com/lenechapion/luck-game/assets/155729519/f945057b-ff67-4ffe-bb5a-c7994f57f901)
+
+リザルト画面：
+![スクリーンショット3](https://github.com/lenechapion/luck-game/assets/155729519/57035c03-90ff-4a51-99bf-c745f80d011d)
+
+
+
 # Requirement
 
 Python標準のライブラリで動作します。
