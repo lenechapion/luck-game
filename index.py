@@ -77,8 +77,8 @@ def play_game(high_score, score, choices, mode):
             if player_choice == safe_line:
                 print("スコアアップ！")
                 score += 1
-                if score % 10 == 0:#10回ごとにメッセージ表示
-                    print(f"\n{score}回達成！！")
+                if score % 1 == 0:#10回ごとにメッセージ表示
+                    print(f"\n{score}回達成！！　運命が味方しています！！")
                 time.sleep(1)#１秒表示
             else:
                 print(f"{RED}ゲームオーバー！{END}")
